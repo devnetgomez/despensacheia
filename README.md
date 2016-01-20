@@ -9,6 +9,7 @@ O aplicativo Dispensa Cheia está sendo projetado para o sistema operacional And
 * Estrutura de menus
 
 **Em desenvolvimento**
+* [Ajustar itens do menu - Issue #1](https://github.com/devnetgomez/dispensacheia/issues/1)
 * Cadastro de itens
 * Listagem de itens cadastrados
 
