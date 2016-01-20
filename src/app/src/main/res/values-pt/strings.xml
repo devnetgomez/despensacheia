@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DispensaCheia</string>
+    <string name="action_settings">Configurações</string>
+    <string name="title_activity_settings">Configurações</string>
+    <string name="title_activity_new_edit_item">Adicionar/Editar Item</string>
+    <string name="menu_additem">Adicionar item</string>
+    <string name="menu_lists">Listas</string>
+    <string name="menu_recipes">Receitas</string>
+    <string name="menu_settings">Configurações</string>
+    <string name="menu_share">Compartilhar</string>
+    <string name="menu_statistics">Estatísticas</string>
+</resources>
