@@ -121,16 +121,18 @@ public class Home extends AppCompatActivity
             Intent intentNewEditItemActivity = new Intent(getApplicationContext(), NewEditItemActivity.class);
             startActivity(intentNewEditItemActivity);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_lists) {
 
             Intent intentListItemActivity = new Intent(getApplicationContext(), ListItemActivity.class);
             startActivity(intentListItemActivity);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_statistics) {
+
+        } else if (id == R.id.nav_recipes) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_settings) {
 
         }
 
