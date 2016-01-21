@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.brzapps.janynne.dispensacheia.sqlite.helper.DatabaseHelper;
 import com.brzapps.janynne.dispensacheia.sqlite.model.Item;
@@ -41,16 +42,40 @@ public class NewEditItemActivity extends AppCompatActivity {
 
         // Instanciando os componentes
         Button btnSaveItem = (Button) findViewById(R.id.btnSaveItem);
-        EditText edtNameItem= (EditText)findViewById(R.id.edtItemNameField);
+        EditText edtNameItem = (EditText) findViewById(R.id.edtItemNameField);
+        EditText edtStatusItem = (EditText) findViewById(R.id.edtItemStatusField);
 
-        // Criando o objeto com informações
-        Item newItem = new Item(edtNameItem.getText().toString(),1);
+        long newItemId = 0;
 
-        long newItemId = db.createItem(newItem);
+        try {
 
-        db.closeDB();
+            // Criando o objeto com informações
+            Item newItem = new Item(edtNameItem.getText().toString(), 1);
 
-        btnSaveItem.setText(String.valueOf(newItemId));
+            newItemId = db.createItem(newItem);
+
+            db.closeDB();
+
+            btnSaveItem.setText(String.valueOf(newItemId));
+
+
+        }
+        catch (Exception e)
+        {
+
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG)
+                    .show();
+
+        }
+        finally {
+
+            db.closeDB();
+
+            Toast.makeText(getApplicationContext(), String.valueOf( newItemId),  Toast.LENGTH_LONG)
+            .show();
+
+            this.finish();
+        }
 
     }
 }

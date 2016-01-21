@@ -115,9 +115,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /*
  * getting all Items
  * */
-    public List<Item> getAllToDos() {
+    public ArrayList<Item> getAllItems() {
 
-        List<Item> items = new ArrayList<Item>();
+        ArrayList<Item> items = new ArrayList<Item>();
         String selectQuery = "SELECT  * FROM " + TABLE_ITEM;
 
         Log.e(LOG, selectQuery);

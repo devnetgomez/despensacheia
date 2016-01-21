@@ -13,15 +13,21 @@
 
     <application
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:debuggable="true">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Home"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
@@ -30,8 +36,8 @@
             android:label="@string/title_activity_new_edit_item"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ListItemActivity"
-            android:label="@string/title_activity_list_item"
+            android:name=".ListingItemsActivity"
+            android:label="@string/title_activity_listing_items"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

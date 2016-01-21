@@ -88,7 +88,7 @@ public class Home extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
@@ -113,6 +113,7 @@ public class Home extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -123,8 +124,8 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_lists) {
 
-            Intent intentListItemActivity = new Intent(getApplicationContext(), ListItemActivity.class);
-            startActivity(intentListItemActivity);
+            Intent intentNewEditItemActivity = new Intent(getApplicationContext(), ListingItemsActivity.class);
+            startActivity(intentNewEditItemActivity);
 
         } else if (id == R.id.nav_statistics) {
 
@@ -145,7 +146,7 @@ public class Home extends AppCompatActivity
     public void onStart() {
         super.onStart();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // ATTENTION: This was auto-generated to implemnent the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
         Action viewAction = Action.newAction(

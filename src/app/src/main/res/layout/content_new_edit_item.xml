@@ -46,7 +46,8 @@
             android:layout_height="wrap_content"
             android:text="Save"
             android:id="@+id/btnSaveItem"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:onClick="btnSaveItem_onClick" />
 
 
     </LinearLayout>

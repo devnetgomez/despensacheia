@@ -164,4 +164,6 @@
     <string name="menu_statistics">Statistics</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_additem">Add Item</string>
+    <string name="title_activity_items_list">ItemsList</string>
+    <string name="title_activity_listing_items">ListingItemsActivity</string>
 </resources>
