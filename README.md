@@ -17,6 +17,10 @@ O aplicativo Dispensa Cheia está sendo projetado para o sistema operacional And
 * Cadastro de grupos
 * Cadastro de listas
 
+## Diagrama de banco de dados
+
+![Diagrama](https://github.com/devnetgomez/dispensacheia/blob/master/data-model-diagram.png)
+
 
 ## Como contribuir
 
