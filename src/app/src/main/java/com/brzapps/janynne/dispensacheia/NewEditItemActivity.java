@@ -1,5 +1,6 @@
 package com.brzapps.janynne.dispensacheia;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -60,8 +61,7 @@ public class NewEditItemActivity extends AppCompatActivity {
 
 
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
 
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG)
                     .show();
@@ -75,6 +75,9 @@ public class NewEditItemActivity extends AppCompatActivity {
             .show();
 
             this.finish();
+
+            Intent intentNewEditItemActivity = new Intent(getApplicationContext(), ListingItemsActivity.class);
+            startActivity(intentNewEditItemActivity);
         }
 
     }
