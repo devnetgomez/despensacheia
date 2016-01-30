@@ -1,6 +1,6 @@
-# Dispensa Cheia
+# Despensa Cheia
 
-O aplicativo Dispensa Cheia está sendo projetado para o sistema operacional Android e visa manter o controle de gastos no consumo de produtos domésticos.
+O aplicativo Despensa Cheia está sendo projetado para o sistema operacional Android e visa manter o controle de gastos no consumo de produtos domésticos.
 
 
 ### Recursos
