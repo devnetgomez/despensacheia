@@ -1,4 +1,4 @@
-package com.brzapps.janynne.dispensacheia;
+package com.brzapps.janynne.despensacheia.activities;
 
 
 import android.annotation.TargetApi;
@@ -20,6 +20,9 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
+
+import com.brzapps.janynne.despensacheia.AppCompatPreferenceActivity;
+import com.brzapps.janynne.despensacheia.R;
 
 import java.util.List;
 

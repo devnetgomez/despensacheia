@@ -5,8 +5,8 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.brzapps.janynne.dispensacheia"
-        minSdkVersion 11
+        applicationId "com.brzapps.janynne.despensacheia"
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"

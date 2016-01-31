@@ -1,4 +1,4 @@
-package com.brzapps.janynne.dispensacheia;
+package com.brzapps.janynne.despensacheia;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

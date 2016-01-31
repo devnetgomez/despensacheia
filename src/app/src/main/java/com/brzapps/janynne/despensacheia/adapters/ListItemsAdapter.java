@@ -1,4 +1,4 @@
-package com.brzapps.janynne.dispensacheia.adapters;
+package com.brzapps.janynne.despensacheia.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.brzapps.janynne.dispensacheia.R;
-import com.brzapps.janynne.dispensacheia.sqlite.model.Item;
+import com.brzapps.janynne.despensacheia.R;
+import com.brzapps.janynne.despensacheia.sqlite.model.Item;
 
 import java.util.ArrayList;
 

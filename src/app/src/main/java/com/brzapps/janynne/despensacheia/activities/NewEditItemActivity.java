@@ -1,4 +1,4 @@
-package com.brzapps.janynne.dispensacheia;
+package com.brzapps.janynne.despensacheia.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.brzapps.janynne.dispensacheia.sqlite.helper.DatabaseHelper;
-import com.brzapps.janynne.dispensacheia.sqlite.model.Item;
+import com.brzapps.janynne.despensacheia.R;
+import com.brzapps.janynne.despensacheia.sqlite.helper.DatabaseHelper;
+import com.brzapps.janynne.despensacheia.sqlite.helper.Items;
+import com.brzapps.janynne.despensacheia.sqlite.model.Item;
 
 public class NewEditItemActivity extends AppCompatActivity {
 
     DatabaseHelper db;
+    Items items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +53,18 @@ public class NewEditItemActivity extends AppCompatActivity {
 
         try {
 
-            // Criando o objeto com informações
-            Item newItem = new Item(edtNameItem.getText().toString(), 1);
+            if(!edtNameItem.getText().toString().isEmpty()) {
+                // Criando o objeto com informações
+                Item newItem = new Item(edtNameItem.getText().toString(), 1);
 
-            newItemId = db.createItem(newItem);
+                items = new Items(db.getWritableDatabase());
 
-            db.closeDB();
+                newItemId = items.insert(newItem);
 
-            btnSaveItem.setText(String.valueOf(newItemId));
+                Toast.makeText(getApplicationContext(), "Great! "+ edtNameItem.getText().toString()+" added to list! ",  Toast.LENGTH_LONG)
+                        .show();
 
-
+            }
         }
         catch (Exception e) {
 

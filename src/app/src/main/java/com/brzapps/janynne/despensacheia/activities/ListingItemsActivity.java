@@ -1,25 +1,21 @@
-package com.brzapps.janynne.dispensacheia;
+package com.brzapps.janynne.despensacheia.activities;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.brzapps.janynne.dispensacheia.adapters.ListItemsAdapter;
-import com.brzapps.janynne.dispensacheia.sqlite.helper.DatabaseHelper;
-import com.brzapps.janynne.dispensacheia.sqlite.model.Item;
+import com.brzapps.janynne.despensacheia.R;
+import com.brzapps.janynne.despensacheia.adapters.ListItemsAdapter;
+import com.brzapps.janynne.despensacheia.sqlite.helper.DatabaseHelper;
+import com.brzapps.janynne.despensacheia.sqlite.helper.Items;
+import com.brzapps.janynne.despensacheia.sqlite.model.Item;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class ListingItemsActivity extends AppCompatActivity {
 
@@ -53,7 +49,9 @@ public class ListingItemsActivity extends AppCompatActivity {
         // insert data into the list before setting the adapter
         // otherwise it will generate NullPointerException  - Obviously
 
-        myList = db.getAllItems();
+        Items items = new Items(db.getReadableDatabase());
+
+        myList = items.getAll();
 
         lvDetail.setAdapter(new ListItemsAdapter(context, myList));
 

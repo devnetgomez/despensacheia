@@ -1,4 +1,4 @@
-package com.brzapps.janynne.dispensacheia.sqlite.model;
+package com.brzapps.janynne.despensacheia.sqlite.model;
 
 /**
  * Created by janynne on 18/01/16.

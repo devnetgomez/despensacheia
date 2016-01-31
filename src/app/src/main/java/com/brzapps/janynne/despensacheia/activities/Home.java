@@ -1,4 +1,4 @@
-package com.brzapps.janynne.dispensacheia;
+package com.brzapps.janynne.despensacheia.activities;
 
 import android.content.Context;
 
@@ -17,10 +17,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.Toast;
 
-import com.brzapps.janynne.dispensacheia.sqlite.helper.DatabaseHelper;
-import com.brzapps.janynne.dispensacheia.sqlite.model.Item;
+import com.brzapps.janynne.despensacheia.R;
+import com.brzapps.janynne.despensacheia.sqlite.helper.Categories;
+import com.brzapps.janynne.despensacheia.sqlite.helper.DatabaseHelper;
+import com.brzapps.janynne.despensacheia.sqlite.helper.Items;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -62,6 +65,7 @@ public class Home extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         Context context = getApplicationContext();
 
         SharedPreferences NomesBotoes = context.getSharedPreferences(
@@ -73,7 +77,33 @@ public class Home extends AppCompatActivity
 
         db = new DatabaseHelper(getApplicationContext());
 
+        Items items = new Items(db.getReadableDatabase());
+
+
+        Categories categories = new Categories(db.getReadableDatabase());
+
+
+
     }
+
+    private SearchView.OnQueryTextListener onSearchHome()
+    {
+        return new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                Toast.makeText(Home.this, query, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Toast.makeText(Home.this, newText, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        };
+    }
+
 
 
     @Override
@@ -90,6 +120,17 @@ public class Home extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.home, menu);
+
+        MenuItem itemMenuSearch = menu.findItem(R.id.actionSearch);
+
+        if(itemMenuSearch != null) {
+            SearchView searchViewHome = (SearchView) itemMenuSearch.getActionView();
+
+            if(searchViewHome != null) {
+                searchViewHome.setOnQueryTextListener(onSearchHome());
+            }
+        }
+
         return true;
     }
 
@@ -101,11 +142,11 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        //if (id == R.id.action_settings) {
 
             /* Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(intent);*/
-        }
+        //}
 
         return super.onOptionsItemSelected(item);
     }
@@ -121,6 +162,11 @@ public class Home extends AppCompatActivity
 
             Intent intentNewEditItemActivity = new Intent(getApplicationContext(), NewEditItemActivity.class);
             startActivity(intentNewEditItemActivity);
+
+        } else if (id == R.id.nav_neweditcategory_activity) {
+
+        Intent intentNewEditItemActivity = new Intent(getApplicationContext(), NewEditCategoryActivity.class);
+        startActivity(intentNewEditItemActivity);
 
         } else if (id == R.id.nav_lists) {
 
@@ -157,7 +203,7 @@ public class Home extends AppCompatActivity
                 // Otherwise, set the URL to null.
                 Uri.parse("http://host/path"),
                 // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.brzapps.janynne.dispensacheia/http/host/path")
+                Uri.parse("android-app://com.brzapps.janynne.despensacheia/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
     }
@@ -176,7 +222,7 @@ public class Home extends AppCompatActivity
                 // Otherwise, set the URL to null.
                 Uri.parse("http://host/path"),
                 // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.brzapps.janynne.dispensacheia/http/host/path")
+                Uri.parse("android-app://com.brzapps.janynne.despensacheia/http/host/path")
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
