@@ -1,4 +1,4 @@
-package com.brzapps.janynne.dispensacheia;
+package com.brzapps.janynne.despensacheia;
 
 import org.junit.Test;
 

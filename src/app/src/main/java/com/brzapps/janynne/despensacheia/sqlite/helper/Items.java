@@ -93,6 +93,33 @@ public class Items implements IDataModel {
         return list;
     }
 
+
+    public ArrayList<Item> getAll(String name) {
+
+        ArrayList<Item> list = new ArrayList<Item>();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + "  WHERE "+ KEY_NAME+" LIKE '%"+name+"%'  ORDER BY "+ KEY_NAME;
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            do {
+
+                Item model = new Item();
+
+                model.setId(c.getInt(c.getColumnIndex(PRIMARY_KEY)));
+                model.setName((c.getString(c.getColumnIndex(KEY_NAME))));
+                model.setIcon((c.getString(c.getColumnIndex(KEY_ICON))));
+                model.setIdCategory(Integer.valueOf(c.getString(c.getColumnIndex(KEY_ID_CATEGORY))));
+
+                list.add(model);
+            } while (c.moveToNext());
+        }
+
+        return list;
+    }
+
+
     @Override
     public long insert(IModel model) {
 

@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DispensaCheia</string>
+    <string name="app_name">Despensa Cheia</string>
     <string name="action_settings">Configurações</string>
     <string name="title_activity_settings">Configurações</string>
     <string name="title_activity_new_edit_item">Adicionar/Editar Item</string>
-    <string name="menu_additem">Adicionar item</string>
+    <string name="menu_additem">Novo item</string>
     <string name="menu_lists">Listas</string>
     <string name="menu_recipes">Receitas</string>
     <string name="menu_settings">Configurações</string>
     <string name="menu_share">Compartilhar</string>
     <string name="menu_statistics">Estatísticas</string>
+    <string name="menu_add_category">Nova Categoria</string>
+    <string name="title_activity_items_list">Lista de itens</string>
+    <string name="action_search">Buscar</string>
+    <string name="title_activity_listing_items" translatable="false">Itens na despensa</string>
 </resources>
