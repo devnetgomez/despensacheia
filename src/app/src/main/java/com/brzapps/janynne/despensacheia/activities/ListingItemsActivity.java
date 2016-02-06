@@ -1,16 +1,23 @@
 package com.brzapps.janynne.despensacheia.activities;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -25,9 +32,18 @@ import java.util.ArrayList;
 public class ListingItemsActivity extends AppCompatActivity {
 
     ListView lvDetail;
+
     Context context = ListingItemsActivity.this;
+
     ArrayList<Item> myList = new ArrayList();
+
     DatabaseHelper db;
+
+    Items items;
+
+    // Progress panel views
+    ProgressBar progressLoadingItems;
+    RelativeLayout progressLayout    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,28 +55,28 @@ public class ListingItemsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener( new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                finish();
+
+                Intent intentSingleItemActivity= new Intent(getApplicationContext(), SingleItemActivity.class);
+
+                startActivity(intentSingleItemActivity);
             }
         });
 
+
+
         db = new DatabaseHelper(getApplicationContext());
 
-
         lvDetail = (ListView) findViewById(R.id.listviewItemsListing);
-        // insert data into the list before setting the adapter
-        // otherwise it will generate NullPointerException  - Obviously
 
-        Items items = new Items(db.getReadableDatabase());
+        items = new Items(db.getReadableDatabase());
 
-        myList = items.getAll();
-
-        lvDetail.setAdapter(new ListItemsAdapter(context, myList));
-
-
+        new FillItemsListTask().execute(lvDetail);
 
 
     }
@@ -119,4 +135,50 @@ public class ListingItemsActivity extends AppCompatActivity {
         };
     }
 
+
+    public class FillItemsListTask extends AsyncTask<View, Integer, ArrayList<Item>> {
+
+
+        protected void onPreExecute()
+        {
+            progressLoadingItems = new ProgressBar(getApplicationContext());
+
+            progressLayout = new RelativeLayout(getApplicationContext());
+
+            progressLayout.setGravity(Gravity.CENTER);
+
+            progressLayout.addView(progressLoadingItems);
+
+            lvDetail.addHeaderView(progressLayout);
+        }
+
+        @Override
+        protected ArrayList<Item> doInBackground(View... params) {
+
+            items = new Items(db.getReadableDatabase());
+
+            return items.getAll();
+        }
+
+        protected void onPostExecute (ArrayList<Item> result)
+        {
+            lvDetail.setAdapter(new ListItemsAdapter(context, result));
+
+            lvDetail.removeHeaderView(progressLayout);
+
+            lvDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    finish();
+
+                    Intent intentSingleItemActivity= new Intent(getApplicationContext(), SingleItemActivity.class);
+
+                    intentSingleItemActivity.putExtra("id",id);
+
+                    startActivity(intentSingleItemActivity);
+                }
+            });
+        }
+    }
 }

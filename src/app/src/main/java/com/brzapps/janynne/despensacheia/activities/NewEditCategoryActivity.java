@@ -41,6 +41,7 @@ public class NewEditCategoryActivity extends AppCompatActivity {
 
                 // Criando o objeto com informações
                 Category newCategory = new Category(edtNameCategory.getText().toString());
+                newCategory.setIcon(0);
 
                 categories = new Categories(db.getWritableDatabase());
 
@@ -66,8 +67,6 @@ public class NewEditCategoryActivity extends AppCompatActivity {
 
             this.finish();
 
-            Intent intentNewEditItemActivity = new Intent(getApplicationContext(), ListingItemsActivity.class);
-            startActivity(intentNewEditItemActivity);
         }
 
     }

@@ -8,7 +8,7 @@ import com.brzapps.janynne.despensacheia.sqlite.helper.IModel;
 public class Category implements IModel{
     int id;
     String name;
-    String icon;
+    int icon;
 
 
     // constructors
@@ -20,12 +20,12 @@ public class Category implements IModel{
         this.name = name;
     }
 
-    public Category(String name, String icon) {
+    public Category(String name, int icon) {
         this.name = name;
         this.icon = icon;
     }
 
-    public Category(int id, String name, String icon) {
+    public Category(int id, String name, int icon) {
         this.id = id;
         this.name = name;
         this.icon = icon;
@@ -40,7 +40,7 @@ public class Category implements IModel{
         this.name  = name;
     }
 
-    public void setIcon(String icon) {
+    public void setIcon(int icon) {
         this.icon = icon;
     }
 
@@ -54,7 +54,7 @@ public class Category implements IModel{
         return this.name;
     }
 
-    public String getIcon() {
+    public int getIcon() {
         return this.icon;
     }
 

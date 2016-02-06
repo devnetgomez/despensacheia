@@ -19,6 +19,7 @@ public class Categories implements  IDataModel{
     static  final String TABLE_NAME = "categories";
     static final String PRIMARY_KEY = "id";
     static final String KEY_NAME = "name";
+    static final String KEY_ICON = "icon";
 
 
     public Categories(SQLiteDatabase db)
@@ -54,6 +55,7 @@ public class Categories implements  IDataModel{
 
         model.setId(c.getInt(c.getColumnIndex(PRIMARY_KEY)));
         model.setName((c.getString(c.getColumnIndex(KEY_NAME))));
+        model.setIcon(Integer.valueOf(c.getString(c.getColumnIndex(KEY_ICON))));
 
         return model;
     }
@@ -68,7 +70,7 @@ public class Categories implements  IDataModel{
 
         ArrayList<Category> list = new ArrayList<Category>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME + "ORDER BY "+ KEY_NAME;
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " ORDER BY "+ KEY_NAME;
 
         Cursor c = db.rawQuery(selectQuery, null);
 
@@ -79,6 +81,7 @@ public class Categories implements  IDataModel{
 
                 model.setId(c.getInt(c.getColumnIndex(PRIMARY_KEY)));
                 model.setName((c.getString(c.getColumnIndex(KEY_NAME))));
+                model.setIcon(Integer.valueOf(c.getString(c.getColumnIndex(KEY_ICON))));
 
                 list.add(model);
             } while (c.moveToNext());
@@ -96,6 +99,7 @@ public class Categories implements  IDataModel{
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, _model.getName());
+        values.put(KEY_ICON, _model.getIcon());
 
         long id = db.insert(TABLE_NAME, null, values);
 
@@ -123,6 +127,18 @@ public class Categories implements  IDataModel{
             db.delete(TABLE_NAME, PRIMARY_KEY + " = ?",
                     new String[] { String.valueOf(id) });
         }
+
+    }
+
+    public int count()
+    {
+        String selectQuery = "SELECT COUNT ("+PRIMARY_KEY+") AS \"count\" FROM " + TABLE_NAME ;
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+            return c.getInt(c.getColumnIndex("count"));
 
     }
 }

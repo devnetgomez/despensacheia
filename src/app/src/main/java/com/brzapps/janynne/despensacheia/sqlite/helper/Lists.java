@@ -5,23 +5,24 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.brzapps.janynne.despensacheia.sqlite.model.Item;
+import com.brzapps.janynne.despensacheia.sqlite.model.List;
 
 import java.util.ArrayList;
 
 /**
- * Created by janynne on 23/01/16.
+ * Created by janynne on 06/02/16.
  */
-public class Items implements IDataModel {
+public class Lists implements IDataModel {
 
     SQLiteDatabase db;
 
-    static  final String TABLE_NAME = "items";
+    static  final String TABLE_NAME = "lists";
     static final String PRIMARY_KEY = "id";
     static final String KEY_NAME = "name";
-    static final String KEY_ICON = "icon";
-    static final String KEY_ID_CATEGORY = "idcategory";
+    static final String KEY_MONTH = "month";
+    static final String KEY_YEAR = "year";
 
-    public Items(SQLiteDatabase db)
+    public Lists(SQLiteDatabase db)
     {
         this.db = db;
     }
@@ -32,16 +33,16 @@ public class Items implements IDataModel {
     }
 
     @Override
-    public String createTableScript() {
+    public final String createTableScript() {
         return "CREATE TABLE " + TABLE_NAME + " ("
                 + PRIMARY_KEY + " INTEGER AUTOINCREMENT PRIMARY KEY, "
                 + KEY_NAME + " TEXT NOT NULL, "
-                + KEY_ID_CATEGORY + " INTEGER NOT NULL, "
-                + KEY_ICON   + " TEXT NOT NULL )";
+                + KEY_MONTH + " INTEGER NOT NULL, "
+                + KEY_YEAR  + " INTEGER NOT NULL )";
     }
 
     @Override
-    public Item get(long id) {
+    public List get(long id) {
 
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
                 + PRIMARY_KEY + " = " + id;
@@ -51,12 +52,11 @@ public class Items implements IDataModel {
         if (c != null)
             c.moveToFirst();
 
-        Item model = new Item();
+        List model = new List(c.getString(c.getColumnIndex(KEY_NAME)));
 
         model.setId(c.getInt(c.getColumnIndex(PRIMARY_KEY)));
-        model.setName((c.getString(c.getColumnIndex(KEY_NAME))));
-        model.setIcon(Integer.valueOf(c.getString(c.getColumnIndex(KEY_ICON))));
-        model.setIdCategory(c.getInt(c.getColumnIndex(KEY_ID_CATEGORY)));
+        model.setMonth(c.getInt(c.getColumnIndex(KEY_MONTH)));
+        model.setYear(c.getInt(c.getColumnIndex(KEY_MONTH)));
 
         return model;
 
@@ -68,9 +68,9 @@ public class Items implements IDataModel {
     }
 
     @Override
-    public ArrayList<Item> getAll() {
+    public ArrayList<List> getAll() {
 
-        ArrayList<Item> list = new ArrayList<Item>();
+        ArrayList<List> list = new ArrayList<List>();
 
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + "   ORDER BY "+ KEY_NAME;
 
@@ -78,15 +78,14 @@ public class Items implements IDataModel {
 
         if (c.moveToFirst()) {
             do {
-
-                Item model = new Item();
+                List model = new List(c.getString(c.getColumnIndex(KEY_NAME)));
 
                 model.setId(c.getInt(c.getColumnIndex(PRIMARY_KEY)));
-                model.setName((c.getString(c.getColumnIndex(KEY_NAME))));
-                model.setIcon(Integer.valueOf(c.getString(c.getColumnIndex(KEY_ICON))));
-                model.setIdCategory(Integer.valueOf(c.getString(c.getColumnIndex(KEY_ID_CATEGORY))));
+                model.setMonth(c.getInt(c.getColumnIndex(KEY_MONTH)));
+                model.setYear(c.getInt(c.getColumnIndex(KEY_MONTH)));
 
                 list.add(model);
+
             } while (c.moveToNext());
         }
 
@@ -94,9 +93,9 @@ public class Items implements IDataModel {
     }
 
 
-    public ArrayList<Item> getAll(String name) {
+    public ArrayList<List> getAll(String name) {
 
-        ArrayList<Item> list = new ArrayList<Item>();
+        ArrayList<List> list = new ArrayList<List>();
 
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + "  WHERE "+ KEY_NAME+" LIKE '%"+name+"%'  ORDER BY "+ KEY_NAME;
 
@@ -105,14 +104,14 @@ public class Items implements IDataModel {
         if (c.moveToFirst()) {
             do {
 
-                Item model = new Item();
+                List model = new List(c.getString(c.getColumnIndex(KEY_NAME)));
 
                 model.setId(c.getInt(c.getColumnIndex(PRIMARY_KEY)));
-                model.setName((c.getString(c.getColumnIndex(KEY_NAME))));
-                model.setIcon(Integer.valueOf(c.getString(c.getColumnIndex(KEY_ICON))));
-                model.setIdCategory(Integer.valueOf(c.getString(c.getColumnIndex(KEY_ID_CATEGORY))));
+                model.setMonth(c.getInt(c.getColumnIndex(KEY_MONTH)));
+                model.setYear(c.getInt(c.getColumnIndex(KEY_MONTH)));
 
                 list.add(model);
+
             } while (c.moveToNext());
         }
 
@@ -123,12 +122,12 @@ public class Items implements IDataModel {
     @Override
     public long insert(IModel model) {
 
-        Item _model = (Item)model;
+        List _model = (List)model;
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, _model.getName());
-        values.put(KEY_ICON, _model.getIcon());
-        values.put(KEY_ID_CATEGORY, _model.getCategoryId());
+        values.put(KEY_MONTH, _model.getMonth());
+        values.put(KEY_YEAR, _model.getYear());
 
         long id = db.insert(TABLE_NAME, null, values);
 
@@ -138,12 +137,12 @@ public class Items implements IDataModel {
     @Override
     public int update(IModel model) {
 
-        Item _model = (Item)model;
+        List _model = (List)model;
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, _model.getName());
-        values.put(KEY_ICON, _model.getIcon());
-        values.put(KEY_ID_CATEGORY, _model.getCategoryId());
+        values.put(KEY_MONTH, _model.getMonth());
+        values.put(KEY_YEAR, _model.getYear());
 
         // updating row
         return db.update(TABLE_NAME, values, PRIMARY_KEY + " = ?",

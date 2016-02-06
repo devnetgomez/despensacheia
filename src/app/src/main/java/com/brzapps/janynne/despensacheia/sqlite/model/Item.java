@@ -1,5 +1,6 @@
 package com.brzapps.janynne.despensacheia.sqlite.model;
 
+import com.brzapps.janynne.despensacheia.sqlite.helper.DatabaseHelper;
 import com.brzapps.janynne.despensacheia.sqlite.helper.IModel;
 
 /**
@@ -9,8 +10,8 @@ public class Item implements IModel {
 
     int id = 0;
     String name = "";
-    String icon = "";
-    int idCategory = 0;
+    int icon = 0;
+    long idCategory = 0;
 
     // constructors
     public Item() {
@@ -37,9 +38,9 @@ public class Item implements IModel {
         this.name  = name;
     }
 
-    public void setIdCategory(int idCategory) { this.idCategory = idCategory;    }
+    public void setIdCategory(long idCategory) { this.idCategory = idCategory;    }
 
-    public void setIcon(String icon){
+    public void setIcon(int icon){
         this.icon = icon;
     }
 
@@ -52,10 +53,12 @@ public class Item implements IModel {
         return this.name;
     }
 
-    public String getIcon() {
+    public int getIcon() {
         return this.icon;
     }
 
     public long getCategoryId() { return this.idCategory;    }
+
+
 
 }

@@ -42,12 +42,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 +  "id  INTEGER PRIMARY KEY, "
                 + " name TEXT NOT NULL, "
                 + "idcategory INTEGER NOT NULL, "
-                + "icon TEXT NOT NULL )";
+                + "icon TEXT NOT NULL ) ";
 
-
-       // creating required tables
         db.execSQL(itemsTableScript);
-        //db.execSQL(Categories.createTableScript());
+
+        String categoriesTableScript = "CREATE TABLE  categories ("
+                +  " id  INTEGER PRIMARY KEY, "
+                + " name TEXT NOT NULL,"
+                + " icon TEXT NOT NULL ) ";
+
+
+        db.execSQL(categoriesTableScript);
+
+        String personalListTableScript = "CREATE TABLE  lists ("
+                +  " id  INTEGER PRIMARY KEY, "
+                + " name TEXT NOT NULL,"
+                + " month TEXT NOT NULL  , "
+                + " year TEXT NOT NULL ) ";
+
+        db.execSQL(personalListTableScript);
 
 
     }

@@ -1,5 +1,6 @@
 package com.brzapps.janynne.despensacheia.adapters;
 
+import android.app.Application;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brzapps.janynne.despensacheia.R;
+import com.brzapps.janynne.despensacheia.sqlite.helper.Categories;
+import com.brzapps.janynne.despensacheia.sqlite.helper.DatabaseHelper;
+import com.brzapps.janynne.despensacheia.sqlite.helper.Items;
+import com.brzapps.janynne.despensacheia.sqlite.model.Category;
 import com.brzapps.janynne.despensacheia.sqlite.model.Item;
 
 import java.util.ArrayList;
@@ -42,7 +47,7 @@ public class ListItemsAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return  myList.get(position).getId();
     }
 
     @Override
@@ -61,8 +66,25 @@ public class ListItemsAdapter extends BaseAdapter {
         Item currentListData = getItem(position);
 
         mViewHolder.txvTitle.setText(currentListData.getName());
-        mViewHolder.tvDesc.setText(currentListData.getName());
-        mViewHolder.ivIcon.setImageResource(R.drawable.ic_menu_camera);
+
+
+        if(currentListData.getIcon() > 0) {
+            mViewHolder.ivIcon.setImageResource(currentListData.getIcon());
+        }
+
+        long categoryId = currentListData.getCategoryId();
+
+        if(categoryId > 0) {
+
+            DatabaseHelper db = new DatabaseHelper(this.context);
+
+            Categories categories = new Categories(db.getReadableDatabase());
+
+            Category category = categories.get(categoryId);
+
+            mViewHolder.tvDesc.setText(category.getName());
+
+        }
 
         return convertView;
     }

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.method.CharacterPickerDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,16 +18,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.brzapps.janynne.despensacheia.DashboardButtons;
 import com.brzapps.janynne.despensacheia.R;
+import com.brzapps.janynne.despensacheia.adapters.DashboardButtonsAdapter;
 import com.brzapps.janynne.despensacheia.sqlite.helper.Categories;
 import com.brzapps.janynne.despensacheia.sqlite.helper.DatabaseHelper;
 import com.brzapps.janynne.despensacheia.sqlite.helper.Items;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Home extends AppCompatActivity
@@ -39,6 +47,8 @@ public class Home extends AppCompatActivity
     private GoogleApiClient client;
 
     DatabaseHelper db;
+    Items items;
+    Categories categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +87,14 @@ public class Home extends AppCompatActivity
 
         db = new DatabaseHelper(getApplicationContext());
 
-        Items items = new Items(db.getReadableDatabase());
+        items = new Items(db.getReadableDatabase());
 
 
-        Categories categories = new Categories(db.getReadableDatabase());
+        categories = new Categories(db.getReadableDatabase());
+
+        // DashButtons configuration
+        loadDashButtons();
+
 
 
 
@@ -160,8 +174,8 @@ public class Home extends AppCompatActivity
 
         if (id == R.id.nav_newedititem_activity) {
 
-            Intent intentNewEditItemActivity = new Intent(getApplicationContext(), NewEditItemActivity.class);
-            startActivity(intentNewEditItemActivity);
+            Intent intentSingleItemActivity= new Intent(getApplicationContext(), SingleItemActivity.class);
+            startActivity(intentSingleItemActivity);
 
         } else if (id == R.id.nav_neweditcategory_activity) {
 
@@ -226,5 +240,58 @@ public class Home extends AppCompatActivity
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+    protected void loadDashButtons(){
+
+      runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+              ArrayList<DashboardButtons> dashButtons = new ArrayList<DashboardButtons>();
+
+              dashButtons.add(new DashboardButtons(0, R.drawable.ic_rate_review_black_48dp, "Lançar consumo"));
+              dashButtons.add(new DashboardButtons(1, R.drawable.ic_shopping_basket_black_48dp, String.valueOf(items.count())+ " Itens"));
+              dashButtons.add(new DashboardButtons(2, R.drawable.ic_local_offer_black_48dp, String.valueOf(categories.count())+ " Categorias"));
+              dashButtons.add(new DashboardButtons(3, R.drawable.ic_receipt_black_48dp, "Listas"));
+
+              DashboardButtonsAdapter adapterDash = new DashboardButtonsAdapter(getApplicationContext(), dashButtons);
+
+              GridView gdvDash = (GridView)findViewById(R.id.grdDashboardButtons);
+
+              gdvDash.setAdapter(adapterDash);
+
+              gdvDash.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                 @Override
+                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+                                                     if (id == 1) {
+
+                                                         Intent intentListingItemsActivity = new Intent(getApplicationContext(), ListingItemsActivity.class);
+                                                         startActivity(intentListingItemsActivity);
+
+                                                     }
+
+                                                     if (id == 2) {
+
+                                                         Intent intentListingCategoryActivity = new Intent(getApplicationContext(), ListingCategoryActivity.class);
+                                                         startActivity(intentListingCategoryActivity);
+
+                                                     }
+                                                     if (id == 3) {
+
+                                                         Intent intentListactivity = new Intent(getApplicationContext(), Listactivity.class);
+                                                         startActivity(intentListactivity);
+
+                                                     }
+                                                 }
+                                             }
+              );
+
+
+          }
+      });
+
     }
 }
