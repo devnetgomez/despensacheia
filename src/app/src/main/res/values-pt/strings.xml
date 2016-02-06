@@ -14,4 +14,8 @@
     <string name="title_activity_items_list">Lista de itens</string>
     <string name="action_search">Buscar</string>
     <string name="title_activity_listing_items" translatable="false">Itens na despensa</string>
+    <string name="content_single_item_namelabeltext">Nome</string>
+    <string name="title_activity_single_item">Item</string>
+    <string name="menu_categories">Categorias</string>
+    <string name="menu_items">Itens</string>
 </resources>

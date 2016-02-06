@@ -1,0 +1,9 @@
+{
+  "defaultitems":
+    [{ "name":"Arroz", "categoryid":0, "icon":"0x7f02004c"},
+     {"name":"Feijão", "categoryid":0, "icon":"0x7f02004c"},
+     { "name":"Macarrão", "categoryid":0, "icon":"0x7f02004c"},
+     {"name":"Arroz", "categoryid":0, "icon":"0x7f02004c"}
+     ]
+
+}

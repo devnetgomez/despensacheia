@@ -9,14 +9,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.ListingItemsActivity"
-    tools:showIn="@layout/activity_listing_items">
+    tools:context="com.brzapps.janynne.despensacheia.activities.Listactivity"
+    tools:showIn="@layout/activity_listactivity">
 
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/listviewItemsListing"
+        android:id="@+id/listviewLists"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       />
-
+        />
 
 </RelativeLayout>

@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.brzapps.janynne.despensacheia.ListsActivity">
+    <item
+        android:id="@+id/actionSaveListChanges"
+        android:icon="@drawable/ic_done_white_18dp"
+        android:title="Save"
+        app:showAsAction="withText"
+        tools:ignore="AppCompatResource" />
+
+</menu>
