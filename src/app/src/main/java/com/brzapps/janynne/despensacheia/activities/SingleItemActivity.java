@@ -5,36 +5,25 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.brzapps.janynne.despensacheia.R;
 import com.brzapps.janynne.despensacheia.adapters.ListCategoriesAdapter;
-import com.brzapps.janynne.despensacheia.adapters.ListItemsAdapter;
 import com.brzapps.janynne.despensacheia.sqlite.helper.Categories;
 import com.brzapps.janynne.despensacheia.sqlite.helper.DatabaseHelper;
 import com.brzapps.janynne.despensacheia.sqlite.helper.Items;
 import com.brzapps.janynne.despensacheia.sqlite.model.Category;
 import com.brzapps.janynne.despensacheia.sqlite.model.Item;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -88,8 +77,6 @@ public class SingleItemActivity extends AppCompatActivity {
 
              layout.setBackgroundColor(Color.GRAY);
 
-             Toast.makeText(getBaseContext(), "Position: " + String.valueOf(position) + " - Id: " + String.valueOf(id), Toast.LENGTH_LONG).show();
-
          }
         });
 
@@ -108,7 +95,6 @@ public class SingleItemActivity extends AppCompatActivity {
           EditText edtItemNameField = (EditText) findViewById(R.id.edtItemNameField);
           edtItemNameField.setText(current.getName());
 
-          Toast.makeText(getBaseContext(), current.getName(), Toast.LENGTH_LONG).show();
       }
     }
 
@@ -148,7 +134,7 @@ public class SingleItemActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.activity_single_item, menu);
+        getMenuInflater().inflate(R.menu.menu_single_actions, menu);
 
 
         return true;
@@ -160,7 +146,7 @@ public class SingleItemActivity extends AppCompatActivity {
 
        int id = item.getItemId();
 
-       if (id == R.id.actionSaveItemChanges) {
+       if (id == R.id.actionSaveChanges) {
 
            // Instanciando os componentes
            EditText edtNameItem = (EditText) findViewById(R.id.edtItemNameField);

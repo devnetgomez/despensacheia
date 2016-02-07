@@ -9,25 +9,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brzapps.janynne.despensacheia.R;
-import com.brzapps.janynne.despensacheia.sqlite.helper.Categories;
-import com.brzapps.janynne.despensacheia.sqlite.helper.DatabaseHelper;
-import com.brzapps.janynne.despensacheia.sqlite.model.Category;
-import com.brzapps.janynne.despensacheia.sqlite.model.Item;
+import com.brzapps.janynne.despensacheia.sqlite.model.List;
 
 import java.util.ArrayList;
 
 /**
- * Created by janynne on 20/01/16.
+ * Created by janynne on 06/02/16.
  */
+public class ListsAdapter extends BaseAdapter {
 
-public class ListItemsAdapter extends BaseAdapter {
-
-    ArrayList<Item> myList = new ArrayList();
+    ArrayList<List> myList = new ArrayList();
     LayoutInflater inflater;
     Context context;
 
 
-    public ListItemsAdapter(Context context, ArrayList myList) {
+    public ListsAdapter(Context context, ArrayList myList) {
         this.myList = myList;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
@@ -39,7 +35,7 @@ public class ListItemsAdapter extends BaseAdapter {
     }
 
     @Override
-    public Item getItem(int position) {
+    public List getItem(int position) {
         return myList.get(position);
     }
 
@@ -54,49 +50,32 @@ public class ListItemsAdapter extends BaseAdapter {
         ListItemsViewer mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.row_items, parent, false);
+            convertView = inflater.inflate(R.layout.row_lists, parent, false);
             mViewHolder = new ListItemsViewer(convertView);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ListItemsViewer) convertView.getTag();
         }
 
-        Item currentListData = getItem(position);
+        List currentListData = getItem(position);
 
         mViewHolder.txvTitle.setText(currentListData.getName());
-
+        mViewHolder.tvDesc.setText(currentListData.getMonth()+" - "+currentListData.getYear());
         mViewHolder.tvLetter.setText(currentListData.getName().substring(0,1));
-
-        /*if(currentListData.getIcon() > 0) {
-            mViewHolder.ivIcon.setImageResource(currentListData.getIcon());
-        }*/
-
-        long categoryId = currentListData.getCategoryId();
-
-        if(categoryId > 0) {
-
-            DatabaseHelper db = new DatabaseHelper(this.context);
-
-            Categories categories = new Categories(db.getReadableDatabase());
-
-            Category category = categories.get(categoryId);
-
-            mViewHolder.tvDesc.setText(category.getName());
-
-        }
 
         return convertView;
     }
 
     private class ListItemsViewer {
 
-        TextView txvTitle, tvDesc, tvLetter;
+        TextView txvTitle, tvDesc,tvLetter;
         ImageView ivIcon;
 
         public ListItemsViewer(View item) {
             txvTitle = (TextView) item.findViewById(R.id.tvTitle);
             tvDesc = (TextView) item.findViewById(R.id.tvDesc);
             tvLetter = (TextView) item.findViewById(R.id.tvLetter);
+
         }
     }
 }

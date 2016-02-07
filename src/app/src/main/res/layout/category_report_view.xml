@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="5dp"
+    android:padding="30dp"
     android:baselineAligned="false"
     android:background="@drawable/dashbutton_selector"
-    android:id="@+id/dashbuttonLinearLayout"
+    android:id="@+id/categoryReportView"
     android:descendantFocusability="blocksDescendants">
 
     <ImageView
@@ -24,5 +25,14 @@
         android:id="@+id/txvDashButton"
         android:textColor="@color/colorPrimary" />
 
-
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="50" />
 </LinearLayout>
+

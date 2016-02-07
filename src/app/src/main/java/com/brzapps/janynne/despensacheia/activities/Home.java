@@ -1,11 +1,13 @@
 package com.brzapps.janynne.despensacheia.activities;
 
+
 import android.content.Context;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.DimenRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.text.method.CharacterPickerDialog;
@@ -13,14 +15,20 @@ import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brzapps.janynne.despensacheia.DashboardButtons;
@@ -29,12 +37,13 @@ import com.brzapps.janynne.despensacheia.adapters.DashboardButtonsAdapter;
 import com.brzapps.janynne.despensacheia.sqlite.helper.Categories;
 import com.brzapps.janynne.despensacheia.sqlite.helper.DatabaseHelper;
 import com.brzapps.janynne.despensacheia.sqlite.helper.Items;
+import com.brzapps.janynne.despensacheia.sqlite.helper.Lists;
+import com.brzapps.janynne.despensacheia.sqlite.model.Category;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Home extends AppCompatActivity
@@ -49,6 +58,7 @@ public class Home extends AppCompatActivity
     DatabaseHelper db;
     Items items;
     Categories categories;
+    Lists lists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,13 +99,23 @@ public class Home extends AppCompatActivity
 
         items = new Items(db.getReadableDatabase());
 
-
         categories = new Categories(db.getReadableDatabase());
+
+        lists = new Lists(db.getReadableDatabase());
 
         // DashButtons configuration
         loadDashButtons();
 
+        TextView txtFeaturedButton = (TextView)findViewById(R.id.txvDashButton);
+        ImageView imgFeaturedButton = (ImageView)findViewById(R.id.imvDashButton);
+        LinearLayout dashbuttonLinearLayout = (LinearLayout)findViewById(R.id.dashbuttonLinearLayout);
 
+        txtFeaturedButton.setText("Lançar consumo");
+        imgFeaturedButton.getLayoutParams().width = 100;
+        //imgFeaturedButton.setImageResource(R.drawable.input1);
+        dashbuttonLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        dashbuttonLinearLayout.requestLayout();
+        dashbuttonLinearLayout.getLayoutParams().height = 50;
 
 
     }
@@ -249,10 +269,10 @@ public class Home extends AppCompatActivity
           public void run() {
               ArrayList<DashboardButtons> dashButtons = new ArrayList<DashboardButtons>();
 
-              dashButtons.add(new DashboardButtons(0, R.drawable.ic_rate_review_black_48dp, "Lançar consumo"));
+
               dashButtons.add(new DashboardButtons(1, R.drawable.ic_shopping_basket_black_48dp, String.valueOf(items.count())+ " Itens"));
-              dashButtons.add(new DashboardButtons(2, R.drawable.ic_local_offer_black_48dp, String.valueOf(categories.count())+ " Categorias"));
-              dashButtons.add(new DashboardButtons(3, R.drawable.ic_receipt_black_48dp, "Listas"));
+              dashButtons.add(new DashboardButtons(2, R.drawable.ic_local_offer_black_48dp, String.valueOf(categories.count()) + " Categorias"));
+              dashButtons.add(new DashboardButtons(3, R.drawable.ic_receipt_black_48dp, String.valueOf(lists.count()) + " Listas"));
 
               DashboardButtonsAdapter adapterDash = new DashboardButtonsAdapter(getApplicationContext(), dashButtons);
 
@@ -263,7 +283,6 @@ public class Home extends AppCompatActivity
               gdvDash.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                  @Override
                                                  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
 
 
                                                      if (id == 1) {
@@ -288,6 +307,29 @@ public class Home extends AppCompatActivity
                                                  }
                                              }
               );
+
+              GridView grdDashCategories = (GridView)findViewById(R.id.grdDashCategories);
+
+              ArrayList<DashboardButtons> catDashButtons = new ArrayList<DashboardButtons>();
+
+              ArrayList<Category> cat = new ArrayList<Category>();
+
+              cat = categories.getAll();
+
+              for (int i =0; i < cat.size(); i++)
+              {
+                  Category category = cat.get(i);
+
+                  catDashButtons.add( new DashboardButtons((int)category.getId(), R.drawable.ic_receipt_black_48dp,category.getName()));
+
+              }
+
+              DashboardButtonsAdapter adapterCatDash = new DashboardButtonsAdapter(getApplicationContext(), catDashButtons);
+
+
+              grdDashCategories.setAdapter(adapterCatDash);
+
+
 
 
           }

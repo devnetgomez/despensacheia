@@ -10,22 +10,45 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.brzapps.janynne.dispensacheia.Home"
-        tools:showIn="@layout/app_bar_home">
-
+        tools:showIn="@layout/app_bar_home"
+    android:background="@color/colorAccent">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView" >
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_height="match_parent">
+
+            <include
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/dashboard_button"
+                android:layout_marginBottom="10dp" />
 
             <GridView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/grdDashboardButtons"
+                android:columnWidth="80dip"
+                android:numColumns="auto_fit"
+                android:horizontalSpacing="10dp"
+                android:verticalSpacing="10dp" />
+
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/grdDashCategories"
                 android:columnWidth="150dip"
-                android:numColumns="auto_fit"/>
+                android:numColumns="auto_fit"
+                android:horizontalSpacing="10dp"
+                android:verticalSpacing="10dp" />
+
+
 
         </LinearLayout>
-    </RelativeLayout>
+        </ScrollView>
+
+
+</RelativeLayout>

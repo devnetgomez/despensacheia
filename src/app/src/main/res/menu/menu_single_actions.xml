@@ -4,9 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/actionSaveItemChanges"
+        android:id="@+id/actionSaveChanges"
         android:icon="@drawable/ic_done_white_18dp"
         android:title="Save"
-        app:showAsAction="withText"
+        app:showAsAction="always"
+        tools:ignore="AppCompatResource" />
+    <item
+        android:id="@+id/actionDelete"
+        android:icon="@drawable/ic_delete_white_48dp"
+        android:title="Save"
+        app:showAsAction="always"
         tools:ignore="AppCompatResource" />
 </menu>

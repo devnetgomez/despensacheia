@@ -57,8 +57,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String personalListTableScript = "CREATE TABLE  lists ("
                 +  " id  INTEGER PRIMARY KEY, "
                 + " name TEXT NOT NULL,"
-                + " month TEXT NOT NULL  , "
-                + " year TEXT NOT NULL ) ";
+                + " month INTEGER , "
+                + " year INTEGER  ) ";
 
         db.execSQL(personalListTableScript);
 

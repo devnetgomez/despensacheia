@@ -5,10 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brzapps.janynne.despensacheia.R;
+import com.brzapps.janynne.despensacheia.sqlite.helper.Categories;
 import com.brzapps.janynne.despensacheia.sqlite.model.Category;
 
 
@@ -22,6 +22,7 @@ public class ListCategoriesAdapter  extends BaseAdapter {
     ArrayList<Category> myList = new ArrayList();
     LayoutInflater inflater;
     Context context;
+    Categories categories;
 
 
     public ListCategoriesAdapter(Context context, ArrayList myList) {
@@ -51,7 +52,7 @@ public class ListCategoriesAdapter  extends BaseAdapter {
         ListCategoriesViewer mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.categorieslist_row, parent, false);
+            convertView = inflater.inflate(R.layout.row_categories, parent, false);
             mViewHolder = new ListCategoriesViewer(convertView);
             convertView.setTag(mViewHolder);
         } else {
@@ -61,16 +62,20 @@ public class ListCategoriesAdapter  extends BaseAdapter {
         Category currentListData = getItem(position);
 
         mViewHolder.txvCategoryName.setText(currentListData.getName());
+        mViewHolder.tvLetter.setText(currentListData.getName().substring(0, 1));
+
 
         return convertView;
     }
 
     private class ListCategoriesViewer {
 
-        TextView txvCategoryName;
+        TextView txvCategoryName, tvLetter,txvCategoryDate;
 
         public ListCategoriesViewer(View category) {
             txvCategoryName = (TextView) category.findViewById(R.id.txvCategoryName);
+            tvLetter = (TextView) category.findViewById(R.id.tvLetter);
+            txvCategoryDate = (TextView) category.findViewById(R.id.txvCategoryDate);
         }
     }
 }

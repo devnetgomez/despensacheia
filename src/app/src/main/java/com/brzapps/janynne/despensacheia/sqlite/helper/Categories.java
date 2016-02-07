@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 
 import com.brzapps.janynne.despensacheia.sqlite.model.Category;
+import com.brzapps.janynne.despensacheia.sqlite.model.Item;
 
 import java.util.ArrayList;
 
@@ -139,6 +140,57 @@ public class Categories implements  IDataModel{
         if (c != null)
             c.moveToFirst();
             return c.getInt(c.getColumnIndex("count"));
+
+    }
+
+    public int getItemsCount(int idCategory)
+    {
+        if(idCategory > 0) {
+            String selectQuery = "SELECT COUNT (id) AS \"count\" FROM items "
+                    + " WHERE idcategory =" + idCategory;
+
+            Cursor c = db.rawQuery(selectQuery, null);
+
+            if (c != null)
+                c.moveToFirst();
+            return c.getInt(c.getColumnIndex("count"));
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public ArrayList<Item> getAttachedItems(int idCategory)
+    {
+        ArrayList<Item> list = new ArrayList<Item>();
+
+        if(idCategory > 0) {
+
+
+            String selectQuery = "SELECT id, name, icon FROM items "
+                    + " WHERE idcategory =" + idCategory;
+
+
+            Cursor c = db.rawQuery(selectQuery, null);
+
+            if (c.moveToFirst()) {
+                do {
+
+                    Item model = new Item();
+
+                    model.setId(c.getInt(c.getColumnIndex("id")));
+                    model.setName((c.getString(c.getColumnIndex("name"))));
+                    model.setIcon(Integer.valueOf(c.getString(c.getColumnIndex("icon"))));
+                    model.setIdCategory((long) idCategory);
+
+                    list.add(model);
+
+                } while (c.moveToNext());
+            }
+        }
+
+        return list;
 
     }
 }

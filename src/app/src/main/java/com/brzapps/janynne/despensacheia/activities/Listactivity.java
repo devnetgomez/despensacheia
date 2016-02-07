@@ -11,12 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.brzapps.janynne.despensacheia.R;
 import com.brzapps.janynne.despensacheia.adapters.ListItemsAdapter;
+import com.brzapps.janynne.despensacheia.adapters.ListsAdapter;
 import com.brzapps.janynne.despensacheia.sqlite.helper.DatabaseHelper;
 import com.brzapps.janynne.despensacheia.sqlite.helper.Items;
 import com.brzapps.janynne.despensacheia.sqlite.helper.Lists;
@@ -51,15 +53,15 @@ public class Listactivity extends AppCompatActivity {
 
                 finish();
 
-                Intent intentSingleItemActivity= new Intent(getApplicationContext(), SingleItemActivity.class);
+                Intent intentSingleListActivity= new Intent(getApplicationContext(), SingleListActivity.class);
 
-                startActivity(intentSingleItemActivity);
+                startActivity(intentSingleListActivity);
             }
         });
 
         db = new DatabaseHelper(getApplicationContext());
 
-        lvDetail = (ListView) findViewById(R.id.listviewItemsListing);
+        lvDetail = (ListView) findViewById(R.id.listviewLists);
 
         lists = new Lists(db.getReadableDatabase());
 
@@ -82,9 +84,9 @@ public class Listactivity extends AppCompatActivity {
             return lists.getAll();
         }
 
-        protected void onPostExecute (ArrayList<Item> result)
+        protected void onPostExecute (ArrayList<List> result)
         {
-            lvDetail.setAdapter(new ListItemsAdapter(context, result));
+            lvDetail.setAdapter(new ListsAdapter(context, result));
 
             lvDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -92,11 +94,11 @@ public class Listactivity extends AppCompatActivity {
 
                     finish();
 
-                    Intent intentSingleItemActivity= new Intent(getApplicationContext(), SingleItemActivity.class);
+                    Intent intentSingleListActivity= new Intent(getApplicationContext(), SingleListActivity.class);
 
-                    intentSingleItemActivity.putExtra("id",id);
+                    intentSingleListActivity.putExtra("id",id);
 
-                    startActivity(intentSingleItemActivity);
+                    startActivity(intentSingleListActivity);
                 }
             });
         }

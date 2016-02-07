@@ -56,7 +56,7 @@ public class Lists implements IDataModel {
 
         model.setId(c.getInt(c.getColumnIndex(PRIMARY_KEY)));
         model.setMonth(c.getInt(c.getColumnIndex(KEY_MONTH)));
-        model.setYear(c.getInt(c.getColumnIndex(KEY_MONTH)));
+        model.setYear(c.getInt(c.getColumnIndex(KEY_YEAR)));
 
         return model;
 
@@ -82,7 +82,7 @@ public class Lists implements IDataModel {
 
                 model.setId(c.getInt(c.getColumnIndex(PRIMARY_KEY)));
                 model.setMonth(c.getInt(c.getColumnIndex(KEY_MONTH)));
-                model.setYear(c.getInt(c.getColumnIndex(KEY_MONTH)));
+                model.setYear(c.getInt(c.getColumnIndex(KEY_YEAR)));
 
                 list.add(model);
 
@@ -108,7 +108,7 @@ public class Lists implements IDataModel {
 
                 model.setId(c.getInt(c.getColumnIndex(PRIMARY_KEY)));
                 model.setMonth(c.getInt(c.getColumnIndex(KEY_MONTH)));
-                model.setYear(c.getInt(c.getColumnIndex(KEY_MONTH)));
+                model.setYear(c.getInt(c.getColumnIndex(KEY_YEAR)));
 
                 list.add(model);
 

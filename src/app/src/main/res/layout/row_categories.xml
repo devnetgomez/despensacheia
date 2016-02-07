@@ -10,11 +10,19 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnCount="2"
+        android:columnCount="3"
         android:rowCount="1">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="n"
+            android:id="@+id/tvLetter"
+            android:textAllCaps="true"
+            android:background="@color/colorAccent"/>
 
-
-    <LinearLayout
+        <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -43,7 +51,7 @@
         android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|right"
-        android:src="@drawable/ic_info_black_24dp"
+        android:src="@drawable/ic_more_vert_black_48dp"
         android:layout_marginRight="5dp"
         android:background="#ffffff"  />
 </GridLayout>

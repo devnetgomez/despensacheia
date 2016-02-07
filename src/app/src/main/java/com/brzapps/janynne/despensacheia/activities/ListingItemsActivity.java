@@ -6,20 +6,21 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.brzapps.janynne.despensacheia.R;
 import com.brzapps.janynne.despensacheia.adapters.ListItemsAdapter;
@@ -41,6 +42,8 @@ public class ListingItemsActivity extends AppCompatActivity {
 
     Items items;
 
+    LayoutInflater customInflater;
+
     // Progress panel views
     ProgressBar progressLoadingItems;
     RelativeLayout progressLayout    ;
@@ -50,6 +53,8 @@ public class ListingItemsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_items);
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,7 +73,7 @@ public class ListingItemsActivity extends AppCompatActivity {
             }
         });
 
-
+       customInflater = LayoutInflater.from(context);
 
         db = new DatabaseHelper(getApplicationContext());
 
@@ -166,19 +171,52 @@ public class ListingItemsActivity extends AppCompatActivity {
 
             lvDetail.removeHeaderView(progressLayout);
 
-            lvDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if(result.size() < 1) {
 
-                    finish();
+                // Embed a layout
+                ViewGroup view = (ViewGroup) findViewById(android.R.id.content);
+                View v = customInflater.inflate(R.layout.row_items,view,false);
 
-                    Intent intentSingleItemActivity= new Intent(getApplicationContext(), SingleItemActivity.class);
 
-                    intentSingleItemActivity.putExtra("id",id);
+                TextView txtMessage = (TextView)v.findViewById(R.id.tvTitle);
+                txtMessage.setText("Nothing added yet");
 
-                    startActivity(intentSingleItemActivity);
-                }
-            });
+                TextView txtDesc = (TextView)v.findViewById(R.id.tvDesc);
+                txtDesc.setText("You can click here to add an item now");
+
+                TextView txtLetter = (TextView)v.findViewById(R.id.tvLetter);
+                txtDesc.setText("i");
+
+                ImageView imgMoreOptions = (ImageView)v.findViewById(R.id.imgMoreOptions);
+
+                lvDetail.addHeaderView(v);
+
+                lvDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        Intent intentSingleItemActivity = new Intent(getApplicationContext(), SingleItemActivity.class);
+                        startActivity(intentSingleItemActivity);
+                    }
+                });
+
+            }else {
+
+
+                lvDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        finish();
+
+                        Intent intentSingleItemActivity = new Intent(getApplicationContext(), SingleItemActivity.class);
+
+                        intentSingleItemActivity.putExtra("id", id);
+
+                        startActivity(intentSingleItemActivity);
+                    }
+                });
+            }
         }
     }
 }

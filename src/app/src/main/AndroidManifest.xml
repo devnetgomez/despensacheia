@@ -49,7 +49,8 @@
             android:name=".activities.Listactivity"
             android:label="@string/title_activity_listactivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.SingleListActivity"></activity>
+        <activity android:name=".activities.SingleListActivity" />
+        <activity android:name=".activities.ItemsUsageActivity"></activity>
     </application>
 
 </manifest>
