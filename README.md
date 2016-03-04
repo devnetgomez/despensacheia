@@ -2,6 +2,9 @@
 
 O aplicativo Despensa Cheia está sendo projetado para o sistema operacional Android e visa manter o controle de gastos no consumo de produtos domésticos.
 
+### Prototipagem
+
+![](https://github.com/devnetgomez/despensacheia/blob/master/Prot%C3%B3tipo%20UI-UX%20/lista-de-consumo.png?raw=true)
 
 ### Recursos
 
